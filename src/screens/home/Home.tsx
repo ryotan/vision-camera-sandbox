@@ -1,13 +1,31 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import {runOnJS} from 'react-native-reanimated';
-import {
-  Camera,
-  FrameProcessorPerformanceSuggestion,
-  useCameraDevices,
-  useFrameProcessor,
-} from 'react-native-vision-camera';
+import {Camera, useCameraDevices, useFrameProcessor} from 'react-native-vision-camera';
 import {scanFaces, Face} from 'vision-camera-face-detector';
+
+const usePrevious = <T,>(current: T) => {
+  const ref = useRef<T>();
+
+  useEffect(() => {
+    ref.current = current;
+  });
+
+  return ref.current;
+};
+const useIsMounted = () => {
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  return useCallback(() => isMounted.current, []);
+};
 
 export const Home = () => {
   const devices = useCameraDevices();
@@ -17,37 +35,57 @@ export const Home = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isVideoCaptureEnabled, setIsVideoCaptureEnabled] = useState(!!device?.supportsParallelVideoProcessing);
 
+  const prevIsRecording = usePrevious(isRecording);
+  const isMounted = useIsMounted();
+
+  // FIXME: ちゃんとした方法で権限を取得するように修正すること
+  useEffect(() => {
+    Camera.getCameraPermissionStatus()
+      .then(status => {
+        if (status !== 'authorized') {
+          Camera.requestCameraPermission().catch(() => {
+            console.log('Camera permission is required.');
+          });
+        }
+      })
+      .catch(() => {
+        console.log('Failed to get camera permission status.');
+      });
+  });
+
   useEffect(() => {
     if (camera.current) {
-      if (isRecording) {
-        console.log('starting');
+      if (!prevIsRecording && isRecording) {
         camera.current.startRecording({
           flash: 'on',
-          onRecordingFinished: video => {
-            console.log(video);
-            setIsRecording(false);
+          onRecordingFinished: () => {
+            if (isMounted()) {
+              setIsRecording(false);
+            }
           },
           onRecordingError: error => console.error(error),
         });
-      } else {
+      }
+      if (prevIsRecording && !isRecording) {
         camera.current.stopRecording().catch(() => {
-          console.log('failed');
+          console.log('Failed to stop recording.');
         });
       }
     }
-  }, [isRecording]);
+  }, [isMounted, isRecording, prevIsRecording]);
 
   const [faces, setFaces] = React.useState<Face[]>();
 
-  const onFrameProcessorSuggestionAvailable = useCallback((suggestion: FrameProcessorPerformanceSuggestion) => {
-    console.log(`Suggestion available! ${suggestion.type}: Can do ${suggestion.suggestedFrameProcessorFps} FPS`);
-  }, []);
-
-  const frameProcessor = useFrameProcessor(frame => {
-    'worklet';
-    const scannedFaces = scanFaces(frame);
-    runOnJS(setFaces)(scannedFaces);
-  }, []);
+  const frameProcessor = useFrameProcessor(
+    frame => {
+      'worklet';
+      if (!isVideoCaptureEnabled || isRecording) {
+        const scannedFaces = scanFaces(frame);
+        runOnJS(setFaces)(scannedFaces);
+      }
+    },
+    [isVideoCaptureEnabled, isRecording],
+  );
 
   if (device == null) return null;
   return (
@@ -64,11 +102,12 @@ export const Home = () => {
         enableZoomGesture
         onError={error => {
           console.log(error);
-          setIsVideoCaptureEnabled(false);
+          if (isMounted()) {
+            setIsVideoCaptureEnabled(false);
+          }
         }}
         frameProcessor={frameProcessor}
         frameProcessorFps={20}
-        onFrameProcessorPerformanceSuggestionAvailable={onFrameProcessorSuggestionAvailable}
       />
       {faces?.map((face, index) => {
         return (
@@ -76,10 +115,16 @@ export const Home = () => {
             key={index}
             style={{
               position: 'absolute',
-              // @ts-expect-error -- どうも検知した領域の中心が合わないので、適当にそれっぽくなるように、公開されていないプロパティを利用
-              top: (face.bounds.boundingCenterY - face.bounds.height) / 2,
-              // @ts-expect-error -- どうも検知した領域の中心が合わないので、適当にそれっぽくなるように、公開されていないプロパティを利用
-              right: (face.bounds.boundingCenterX - face.bounds.width) / 2,
+              top: Platform.select({
+                // @ts-expect-error -- どうも検知した領域の中心が合わないので、適当にそれっぽくなるように、公開されていないプロパティを利用
+                android: (face.bounds.boundingCenterY - face.bounds.height) / 2,
+                ios: face.bounds.y,
+              }),
+              right: Platform.select({
+                // @ts-expect-error -- どうも検知した領域の中心が合わないので、適当にそれっぽくなるように、公開されていないプロパティを利用
+                android: (face.bounds.boundingCenterX - face.bounds.width) / 2,
+                ios: face.bounds.x,
+              }),
               width: face.bounds.width,
               height: face.bounds.height,
               backgroundColor: 'transparent',
@@ -93,8 +138,9 @@ export const Home = () => {
       {isVideoCaptureEnabled && (
         <Pressable
           onPress={() => {
-            console.log('set isRecording');
-            setIsRecording(prev => !prev);
+            if (isMounted()) {
+              setIsRecording(prev => !prev);
+            }
           }}>
           <View
             style={{
