@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Platform, Pressable, StyleSheet, View} from 'react-native';
+import {Platform, Pressable, SafeAreaView, StyleSheet, View} from 'react-native';
 import {runOnJS} from 'react-native-reanimated';
 import {Camera, useCameraDevices, useFrameProcessor} from 'react-native-vision-camera';
 import {scanFaces, Face} from 'vision-camera-face-detector';
@@ -33,7 +33,7 @@ export const Home = () => {
   const camera = useRef<Camera>(null);
 
   const [isRecording, setIsRecording] = useState(false);
-  const [isVideoCaptureEnabled, setIsVideoCaptureEnabled] = useState(!!device?.supportsParallelVideoProcessing);
+  const [isVideoCaptureEnabled, setIsVideoCaptureEnabled] = useState(true);
 
   const prevIsRecording = usePrevious(isRecording);
   const isMounted = useIsMounted();
@@ -56,9 +56,10 @@ export const Home = () => {
   useEffect(() => {
     if (camera.current) {
       if (!prevIsRecording && isRecording) {
+        console.log('start recording');
         camera.current.startRecording({
-          flash: 'on',
-          onRecordingFinished: () => {
+          onRecordingFinished: video => {
+            console.log(`Record: ${video.path}`);
             if (isMounted()) {
               setIsRecording(false);
             }
@@ -89,7 +90,7 @@ export const Home = () => {
 
   if (device == null) return null;
   return (
-    <View style={StyleSheet.absoluteFill}>
+    <SafeAreaView style={StyleSheet.absoluteFill}>
       <Camera
         ref={camera}
         style={StyleSheet.absoluteFill}
@@ -98,7 +99,6 @@ export const Home = () => {
         video={isVideoCaptureEnabled}
         audio={false}
         photo={false}
-        torch="on"
         enableZoomGesture
         onError={error => {
           console.log(error);
@@ -118,12 +118,12 @@ export const Home = () => {
               top: Platform.select({
                 // @ts-expect-error -- どうも検知した領域の中心が合わないので、適当にそれっぽくなるように、公開されていないプロパティを利用
                 android: (face.bounds.boundingCenterY - face.bounds.height) / 2,
-                ios: face.bounds.y,
+                ios: 30,
               }),
               right: Platform.select({
                 // @ts-expect-error -- どうも検知した領域の中心が合わないので、適当にそれっぽくなるように、公開されていないプロパティを利用
                 android: (face.bounds.boundingCenterX - face.bounds.width) / 2,
-                ios: face.bounds.x,
+                ios: 30,
               }),
               width: face.bounds.width,
               height: face.bounds.height,
@@ -138,6 +138,7 @@ export const Home = () => {
       {isVideoCaptureEnabled && (
         <Pressable
           onPress={() => {
+            console.log('pressed');
             if (isMounted()) {
               setIsRecording(prev => !prev);
             }
@@ -152,6 +153,6 @@ export const Home = () => {
           />
         </Pressable>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
