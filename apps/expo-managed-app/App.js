@@ -1,0 +1,47 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+import { Camera, useCameraDevices } from 'react-native-vision-camera';
+import { useEffect } from 'react';
+
+export default function App() {
+  useEffect(() => {
+    Camera.getCameraPermissionStatus()
+    .then(status => {
+      if (status !== 'authorized') {
+        Camera.requestCameraPermission().catch(() => {
+          console.log('Camera permission is required.');
+        });
+      }
+    })
+    .catch(() => {
+      console.log('Failed to get camera permission status.');
+    });
+  });
+
+  const devices = useCameraDevices();
+  const device = devices.back;
+
+  if (device == null) {
+    return null;
+  }
+
+  return (
+      <View style={styles.container}>
+        <StatusBar style='auto' />
+        <Camera
+            style={StyleSheet.absoluteFill}
+            device={device}
+            isActive={true}
+        />
+      </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

@@ -1,0 +1,41 @@
+{
+  "name": "expo-managed-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-masked-view/masked-view": "*",
+    "@react-navigation/bottom-tabs": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/native-stack": "*",
+    "expo": "*",
+    "expo-splash-screen": "*",
+    "expo-status-bar": "*",
+    "expo-system-ui": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-reanimated": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*",
+    "react-native-svg": "*",
+    "react-native-vision-camera": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "*",
+    "@types/react-native": "*",
+    "@types/react-test-renderer": "*",
+    "babel-preset-expo": "*",
+    "expo-dev-client": "*",
+    "jest": "*",
+    "jest-expo": "*",
+    "react-native-svg-transformer": "*",
+    "react-test-renderer": "*",
+    "typescript": "*"
+  },
+  "private": true
+}
