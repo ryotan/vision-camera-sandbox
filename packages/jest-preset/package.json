@@ -1,0 +1,29 @@
+{
+  "name": "@ryotan-vision-camera-sandbox/jest-preset",
+  "version": "0.1.0-snapshot",
+  "description": "Jest presets used in this monorepo",
+  "scripts": {
+    "test": "jest --detectOpenHandles --runInBand",
+    "lint": "run-s --print-name --continue-on-error lint:*",
+    "lint:es": "eslint --ext .jsx,.js,.tsx,.ts .",
+    "fix": "run-s --print-name --continue-on-error fix:*",
+    "fix:es": "eslint --fix --ext .jsx,.js,.tsx,.ts ."
+  },
+  "main": "jest-preset.js",
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
+  "files": [
+    "jest-preset.js",
+    "jest-preset.*.js",
+    "setup"
+  ],
+  "dependencies": {
+    "jest-expo": "*",
+    "lodash": "*"
+  },
+  "devDependencies": {
+    "react-native": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-reanimated": "*"
+  }
+}
