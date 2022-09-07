@@ -1,0 +1,121 @@
+// Configuration Options | Renovate docs
+// https://docs.renovatebot.com/configuration-options/
+{
+  addLabels: [
+    'dependencies'
+  ],
+  commitMessagePrefix: '⬆️: ',
+  extends: [
+    'config:base',
+    ':preserveSemverRanges'
+  ],
+  timezone: 'Asia/Tokyo',
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: [
+      'before 20:00 on sunday'
+    ],
+  },
+  packageRules: [
+    {
+      // Packages updated by `expo upgrade` are excluded from Renovate.
+      groupName: 'Expo upgrade',
+      enabled: false,
+      matchPackageNames: [
+        '@babel/core',
+        '@react-native-async-storage/async-storage',
+        '@react-native-community/datetimepicker',
+        '@react-native-community/netinfo',
+        '@react-native-masked-view/masked-view',
+        '@react-native-picker/picker',
+        '@types/react',
+        '@types/react-native',
+        'babel-preset-expo',
+        'expo',
+        'expo-crypto',
+        'expo-keep-awake',
+        'expo-local-authentication',
+        'expo-random',
+        'expo-secure-store',
+        'expo-splash-screen',
+        'jest',
+        'jest-expo',
+        'react',
+        'react-dom',
+        'react-native',
+        'react-native-gesture-handler',
+        'react-native-reanimated',
+        'react-native-safe-area-context',
+        'react-native-screens',
+        'react-native-svg',
+        'react-native-web',
+        'react-native-webview',
+        'typescript'
+      ],
+    },
+    {
+      // Because packages that depend on packages updated by expo upgrade need to be updated manually, they are excluded from Renovate.
+      groupName: 'Depends on Expo version',
+      enabled: false,
+      matchPackageNames: [
+        // jest-expo -> jest
+        '@types/jest',
+        // react, jest-expo -> react-test-renderer
+        'react-test-renderer',
+        // react-test-renderer -> @types/react-test-renderer
+        '@types/react-test-renderer',
+        // expo-template-bare-minimum
+        'gradle',
+        // expo-template-bare-minimum
+        'com.android.tools.build:gradle',
+        // expo-template-bare-minimum
+        'de.undercouch:gradle-download-task',
+      ],
+      matchPackagePrefixes: [
+        'com.facebook.flipper',
+        // Fresco is excluded from Renovate because we should use version that is documented in the React Native documentation.
+        // We are assuming that the Fresco version will also be updated with the expo-template-bare-minimum update.
+        // cf: https://reactnative.dev/docs/0.64/image, https://reactnative.dev/docs/image
+        'com.facebook.fresco'
+      ],
+    },
+    {
+      // Configure React Navigation related packages to be updated together.
+      groupName: 'React Navigation',
+      matchPackagePrefixes: [
+        '@react-navigation/'
+      ],
+    },
+    {
+      // Configure React Native Firebase related packages to be updated together.
+      groupName: 'React Native Firebase',
+      matchPackagePrefixes: [
+        '@react-native-firebase/'
+      ],
+    },
+    {
+      // Configure utility packages to be updated together.
+      groupName: 'Tools',
+      matchPackageNames: [
+        '@testing-library/react-native',
+        '@typescript-eslint/eslint-plugin',
+        '@typescript-eslint/parser',
+        'cross-env',
+        'eslint',
+        'jest-junit',
+        'hygen',
+        'ncp',
+        'npm-run-all',
+        'patch-package',
+        'rimraf',
+        'prettier'
+      ],
+      matchPackagePrefixes: [
+        'markdownlint',
+        'textlint',
+        'stylelint',
+        'eslint'
+      ],
+    },
+  ],
+}
