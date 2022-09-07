@@ -1,0 +1,25 @@
+### IntelliJ IDEA ###
+.idea/*
+!/.idea/codeStyles
+!/.idea/dictionaries
+!/.idea/inspectionProfiles
+!/.idea/jsLinters
+!/.idea/scopes
+!/.idea/encodings.xml
+!/.idea/google-java-format.xml
+!/.idea/jsLibraryMappings.xml
+!/.idea/misc.xml
+!/.idea/prettier.xml
+!/.idea/vcs.xml
+!/.idea/runConfigurations
+*.iws
+*.iml
+*.ipr
+
+### Junk ###
+junk.md
+tmp/
+_*[Ss]cratch.*
+
+# For Mac
+.DS_Store
