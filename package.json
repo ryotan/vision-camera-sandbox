@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@ryotan-vision-camera-sandbox/monorepo-root",
+  "version": "0.1.0-snapshot",
+  "description": "My sandbox repository of react-native-vision-camera",
+  "scripts": {},
+  "keywords": [],
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "apps/*",
+    "features/*",
+    "packages/*"
+  ]
+}
