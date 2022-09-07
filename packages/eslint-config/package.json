@@ -1,0 +1,21 @@
+{
+  "name": "@ryotan-vision-camera-sandbox/eslint-config",
+  "version": "0.1.0-snapshot",
+  "description": "Shared ESLint configuration for apps and packages in this monorepo",
+  "main": "default.js",
+  "scripts": {
+    "lint:es": "eslint .",
+    "fix:es": "eslint --fix ."
+  },
+  "keywords": [],
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "eslint-config-universe": "*",
+    "eslint-plugin-deprecation": "*",
+    "eslint-plugin-jest": "*"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  }
+}
