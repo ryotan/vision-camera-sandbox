@@ -1,0 +1,18 @@
+{
+  "name": "@ryotan-vision-camera-sandbox/babel-preset",
+  "version": "0.1.0-snapshot",
+  "description": "The Babel preset for apps and packages in this monorepo",
+  "scripts": {
+    "lint:es": "eslint .",
+    "fix:es": "eslint --fix ."
+  },
+  "keywords": [],
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@ryotan-vision-camera-sandbox/eslint-config": "*"
+  },
+  "peerDependencies": {
+    "babel-preset-expo": "*"
+  }
+}
