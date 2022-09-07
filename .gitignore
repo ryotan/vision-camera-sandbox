@@ -21,5 +21,8 @@ junk.md
 tmp/
 _*[Ss]cratch.*
 
+# Bundler
+.bundle/vendor/
+
 # For Mac
 .DS_Store
