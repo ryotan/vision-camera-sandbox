@@ -1,0 +1,21 @@
+{
+  "name": "@ryotan-vision-camera-sandbox/metro-config",
+  "version": "0.1.0-snapshot",
+  "description": "The default Metro configuration for apps in this monorepo",
+  "scripts": {
+    "test": "jest --detectOpenHandles --runInBand",
+    "lint": "run-s --print-name --continue-on-error lint:*",
+    "lint:es": "eslint --ext .jsx,.js,.tsx,.ts .",
+    "fix": "run-s --print-name --continue-on-error fix:*",
+    "fix:es": "eslint --fix --ext .jsx,.js,.tsx,.ts ."
+  },
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@ryotan-vision-camera-sandbox/eslint-config": "*"
+  },
+  "peerDependencies": {
+    "@expo/metro-config": "*",
+    "react-native-svg-transformer": "*"
+  }
+}
