@@ -1,0 +1,43 @@
+{
+  "name": "@ryotan-vision-camera-sandbox/type-util",
+  "version": "0.1.0-snapshot",
+  "description": "Utility types of typescript",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/typescript/index.d.ts",
+  "react-native": "src/index.ts",
+  "source": "src/index",
+  "typescript": "src/index.ts",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "expo": "*",
+    "typescript": "*"
+  },
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "scripts": {
+    "build": "bob build",
+    "clean": "rimraf dist"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/"
+  ]
+}
