@@ -1,0 +1,25 @@
+// TSConfig Reference: https://www.typescriptlang.org/tsconfig
+
+// Emit declaration, declarationMap, sourceMap to improve developer experience.
+// cf: https://zenn.dev/suin/scraps/9f454023cefb67
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    /********************************************************************************
+     * Modules
+     ********************************************************************************/
+    /* Specify what module code is generated. */
+    "module": "esnext",
+    /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "paths": {
+      // To use following path aliases, you must set `baseDir` to `.` in the `tsconfig.json` of each package or app.
+      "@/*": ["src/*"]
+    },
+
+    /********************************************************************************
+     * Type Checking
+     ********************************************************************************/
+    /* Specify emit/checking behavior for imports that are only used for types. */
+    "importsNotUsedAsValues": "error"
+  }
+}

@@ -1,0 +1,24 @@
+// TSConfig Reference: https://www.typescriptlang.org/tsconfig
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    /********************************************************************************
+     * Modules
+     ********************************************************************************/
+    /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "module": "commonjs",
+    /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "paths": {
+      // To use following path aliases, you must set `baseDir` to `.` in the `tsconfig.json` of each package or app.
+      "@/*": ["src/app/*"],
+      "@lib/*": ["src/lib/*"],
+      "@assets/*": ["src/assets/*"]
+    },
+
+    /********************************************************************************
+     * Emit
+     ********************************************************************************/
+    /* Do not emit outputs. */
+    "noEmit": true
+  }
+}
