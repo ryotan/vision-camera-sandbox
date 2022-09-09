@@ -1,11 +1,7 @@
 {
-  "name": "expo-managed-app",
+  "name": "@ryotan-vision-camera-sandbox/camera-recording-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
     "test": "jest --detectOpenHandles --runInBand",
     "lint": "run-s --print-name --continue-on-error lint:*",
     "lint:es": "eslint --ext .jsx,.js,.tsx,.ts .",
@@ -13,26 +9,26 @@
     "fix": "run-s --print-name --continue-on-error fix:*",
     "fix:es": "eslint --fix --ext .jsx,.js,.tsx,.ts ."
   },
+  "main": "src/index.ts",
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
   "dependencies": {
     "@react-native-masked-view/masked-view": "*",
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
-    "@ryotan-vision-camera-sandbox/camera-recording-app": "*",
-    "expo": "~46.0.9",
-    "expo-splash-screen": "~0.16.2",
+    "expo": "*",
+    "expo-splash-screen": "*",
     "expo-status-bar": "*",
     "expo-system-ui": "*",
-    "react": "18.0.0",
-    "react-native": "0.69.5",
+    "react": "*",
+    "react-native": "*",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": "*",
     "react-native-safe-area-context": "*",
     "react-native-screens": "*",
     "react-native-svg": "*",
-    "react-native-vision-camera": "*",
-    "react-dom": "18.0.0",
-    "react-native-web": "~0.18.7"
+    "react-native-vision-camera": "*"
   },
   "devDependencies": {
     "@babel/core": "*",
