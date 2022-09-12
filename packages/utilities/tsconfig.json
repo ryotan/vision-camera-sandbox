@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.package",
+  "compilerOptions": {
+    "rootDir": "src",
+    "baseUrl": "."
+  }
+}
