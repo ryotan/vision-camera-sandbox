@@ -11,6 +11,11 @@ module.exports = {
             importNames: ['SafeAreaProvider', 'SafeAreaView'],
             message: 'Please use SafeAreaProvider and SafeAreaView from react-native-safe-area-context instead.',
           },
+          {
+            name: 'react-native',
+            importNames: ['Button'],
+            message: 'Please use UI components from @ryotan-vision-camera-sandbox/ui-components instead.',
+          },
         ],
       },
     ],

@@ -18,6 +18,7 @@
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
+    "@ryotan-vision-camera-sandbox/ui-components": "*",
     "@tanstack/react-query": "*",
     "expo": "*",
     "expo-splash-screen": "*",

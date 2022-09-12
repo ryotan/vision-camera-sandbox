@@ -1,7 +1,7 @@
+import {CenteredView} from '@ryotan-vision-camera-sandbox/ui-components';
 import type {FunctionComponent} from 'react';
 import {Text} from 'react-native';
 
-import {CenteredView} from '../../../components/CenteredView';
 import type {PreviewVideoScreenName} from '../../routes';
 import type {HomeStackScreenProps} from './HomeStackScreenProps';
 

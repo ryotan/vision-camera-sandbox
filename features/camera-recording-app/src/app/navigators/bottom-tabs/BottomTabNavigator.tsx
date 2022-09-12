@@ -1,10 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {GearIcon, ListIcon, VideoCameraIcon} from '@ryotan-vision-camera-sandbox/ui-components';
+import type {IconProps} from '@ryotan-vision-camera-sandbox/ui-components';
 import type {FunctionComponent} from 'react';
 
-import {GearIcon} from '../../components/GearIcon';
-import type {IconProps} from '../../components/IconProps';
-import {ListIcon} from '../../components/ListIcon';
-import {VideoCameraIcon} from '../../components/VideoCameraIcon';
 import type {BottomTabScreenParams} from '../routes';
 import {ConfigScreenName, HistoryStackNavigatorScreenName, HomeStackNavigatorScreenName} from '../routes';
 import {bottomTabScreenWithoutStackNavigator, bottomTabScreenDefault} from '../screenOptions';

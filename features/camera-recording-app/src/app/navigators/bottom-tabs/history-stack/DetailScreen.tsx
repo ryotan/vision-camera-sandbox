@@ -1,8 +1,7 @@
+import {Button, CenteredView} from '@ryotan-vision-camera-sandbox/ui-components';
 import {useCallback} from 'react';
 import {Text} from 'react-native';
 
-import {Button} from '../../../components/Button';
-import {CenteredView} from '../../../components/CenteredView';
 import type {DetailScreenName} from '../../routes';
 import {HistoryScreenName} from '../../routes';
 import type {HistoryStackScreenProps} from './HistoryStackScreenProps';

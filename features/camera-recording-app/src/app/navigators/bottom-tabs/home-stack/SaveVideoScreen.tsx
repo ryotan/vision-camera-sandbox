@@ -1,10 +1,9 @@
+import {Button, CenteredView} from '@ryotan-vision-camera-sandbox/ui-components';
 import {StatusBar} from 'expo-status-bar';
 import type {FunctionComponent} from 'react';
 import {useCallback} from 'react';
 import {Platform, Text} from 'react-native';
 
-import {Button} from '../../../components/Button';
-import {CenteredView} from '../../../components/CenteredView';
 import type {SaveVideoScreenName} from '../../routes';
 import {
   DetailScreenName,
