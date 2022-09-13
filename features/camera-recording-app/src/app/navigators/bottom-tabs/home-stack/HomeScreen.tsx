@@ -1,7 +1,6 @@
-import {Button, CenteredView} from '@ryotan-vision-camera-sandbox/ui-components';
+import {VideoRecordingPage} from '@ryotan-vision-camera-sandbox/video-recording/src/pages/VideoRecordingPage';
 import type {FunctionComponent} from 'react';
 import {useCallback} from 'react';
-import {Text} from 'react-native';
 
 import type {HomeScreenName} from '../../routes';
 import {SaveVideoScreenName} from '../../routes';
@@ -11,12 +10,5 @@ export const HomeScreen: FunctionComponent<HomeStackScreenProps<typeof HomeScree
   const navigateToSaveVideo = useCallback(() => {
     navigation.navigate(SaveVideoScreenName);
   }, [navigation]);
-  return (
-    <CenteredView>
-      <Text>HomeScreen</Text>
-      <Button onPress={navigateToSaveVideo}>
-        <Text>Navigate to SaveVideo</Text>
-      </Button>
-    </CenteredView>
-  );
+  return <VideoRecordingPage navigationOnRecordingFinished={navigateToSaveVideo} />;
 };

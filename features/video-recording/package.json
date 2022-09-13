@@ -1,7 +1,7 @@
 {
-  "name": "@ryotan-vision-camera-sandbox/camera-recording-app",
+  "name": "@ryotan-vision-camera-sandbox/video-recording",
   "version": "1.0.0",
-  "description": "Camera recording app",
+  "description": "Camera recording feature",
   "scripts": {
     "test": "jest --detectOpenHandles --runInBand",
     "lint": "run-s --print-name --continue-on-error lint:*",
@@ -18,8 +18,8 @@
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
-    "@ryotan-vision-camera-sandbox/video-recording": "*",
     "@ryotan-vision-camera-sandbox/ui-components": "*",
+    "@ryotan-vision-camera-sandbox/utilities": "*",
     "@tanstack/react-query": "*",
     "expo": "*",
     "expo-splash-screen": "*",
