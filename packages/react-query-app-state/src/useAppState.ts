@@ -4,8 +4,9 @@ import {useCallback, useMemo, useRef} from 'react';
 
 export type AppStateKey = string | number | QueryKey;
 export type InitialAppState<S> = S | (() => S);
-export interface AppStateOptions {
+export interface AppStateOptions<S, V> {
   cacheTime?: number;
+  select?: (data: S) => V;
 }
 export interface SetAppStateFunction<S> {
   (prevState: S | undefined): S;
@@ -16,24 +17,24 @@ export interface SetAppState<S> {
 export interface RemoveAppState {
   (): void;
 }
-export type AppStateAndSetAppState<S> = [S, SetAppState<S>, RemoveAppState];
+export type AppStateAndSetAppState<S, V> = [V, SetAppState<S>, RemoveAppState];
 
-export function useAppState<S = undefined>(
+export function useAppState<S = undefined, V = S>(
   key: AppStateKey,
-  options?: AppStateOptions,
-): AppStateAndSetAppState<S | undefined>;
-export function useAppState<S>(
+  options?: AppStateOptions<S, V>,
+): AppStateAndSetAppState<S | undefined, V | undefined>;
+export function useAppState<S, V = S>(
   key: AppStateKey,
   initialState: InitialAppState<S>,
-  options?: AppStateOptions,
-): AppStateAndSetAppState<S>;
-export function useAppState<S>(
+  options?: AppStateOptions<S, V>,
+): AppStateAndSetAppState<S, V>;
+export function useAppState<S, V = S>(
   key: AppStateKey,
   initialState?: InitialAppState<S | undefined>,
-  options: AppStateOptions = {cacheTime: Infinity},
-): AppStateAndSetAppState<S | undefined> {
+  options: AppStateOptions<S | null, V | null> = {cacheTime: Infinity},
+): AppStateAndSetAppState<S | undefined, V | undefined> {
   const queryKey = useStableQueryKey(key);
-  const {data, remove} = useQuery<S | null>(queryKey, {
+  const {data, remove} = useQuery<S | null, unknown, V | null>(queryKey, {
     enabled: false,
     initialData: initialState,
     ...options,
