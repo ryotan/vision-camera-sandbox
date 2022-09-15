@@ -5,7 +5,7 @@ import type {FunctionComponent} from 'react';
 
 import type {BottomTabScreenParams} from '../routes';
 import {ConfigScreenName, HistoryStackNavigatorScreenName, HomeStackNavigatorScreenName} from '../routes';
-import {bottomTabScreenWithoutStackNavigator, bottomTabScreenDefault} from '../screenOptions';
+import {useBottomTabScreenOptions} from '../screenOptions';
 import {ConfigScreen} from './ConfigScreen';
 import {HistoryStackNavigator} from './history-stack/HistoryStackNavigator';
 import {HomeStackNavigator} from './home-stack/HomeStackNavigator';
@@ -22,8 +22,11 @@ const ConfigScreenBottomTabIcon: FunctionComponent<IconProps> = ({color, size}) 
 
 const tab = createBottomTabNavigator<BottomTabScreenParams>();
 export const BottomTabNavigator = () => {
+  console.debug('BottomTabNavigator is rendered');
+
+  const {defaultScreen, screenWithoutStackNavigator} = useBottomTabScreenOptions();
   return (
-    <tab.Navigator screenOptions={bottomTabScreenDefault}>
+    <tab.Navigator screenOptions={defaultScreen}>
       <tab.Screen
         name={HomeStackNavigatorScreenName}
         component={HomeStackNavigator}
@@ -37,7 +40,7 @@ export const BottomTabNavigator = () => {
       <tab.Screen
         name={ConfigScreenName}
         component={ConfigScreen}
-        options={{...bottomTabScreenWithoutStackNavigator, title: 'Config', tabBarIcon: ConfigScreenBottomTabIcon}}
+        options={{...screenWithoutStackNavigator, title: 'Config', tabBarIcon: ConfigScreenBottomTabIcon}}
       />
     </tab.Navigator>
   );
