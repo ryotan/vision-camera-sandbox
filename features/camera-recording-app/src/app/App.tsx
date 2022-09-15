@@ -1,11 +1,12 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {StatusBar} from 'expo-status-bar';
 import type {FunctionComponent} from 'react';
 import {StrictMode} from 'react';
 import {LogBox, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {initialWindowMetrics, SafeAreaProvider} from 'react-native-safe-area-context';
 
+import {ColorSchemeChangeEventListenerProvider} from './contexts/ColorSchemeChangeEventListenerProvider';
+import {ReactQueryClientProvider} from './contexts/react-query/ReactQueryClientProvider';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
 
 if (__DEV__) {
@@ -18,14 +19,17 @@ if (__DEV__) {
 export const App: FunctionComponent = () => {
   return (
     <StrictMode>
-      <GestureHandlerRootView style={StyleSheet.absoluteFill}>
-        <StatusBar style="dark" animated />
-        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          <NavigationContainer>
-            <RootStackNavigator />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
+      <ReactQueryClientProvider>
+        <ColorSchemeChangeEventListenerProvider>
+          <GestureHandlerRootView style={StyleSheet.absoluteFill}>
+            <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+              <NavigationContainer>
+                <RootStackNavigator />
+              </NavigationContainer>
+            </SafeAreaProvider>
+          </GestureHandlerRootView>
+        </ColorSchemeChangeEventListenerProvider>
+      </ReactQueryClientProvider>
     </StrictMode>
   );
 };
