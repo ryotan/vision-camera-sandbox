@@ -1,13 +1,18 @@
 import type {NavigatorScreenParams} from '@react-navigation/native';
+import type {VideoFile} from 'react-native-vision-camera';
 
 export const HomeScreenName = 'Home';
 export type HomeScreenParams = undefined;
 
 export const SaveVideoScreenName = 'SaveVideo';
-export type SaveVideoScreenParams = undefined;
+export interface SaveVideoScreenParams {
+  videoFile: VideoFile;
+}
 
 export const PreviewVideoScreenName = 'PreviewVideo';
-export type PreviewVideoScreenParams = undefined;
+export interface PreviewVideoScreenParams {
+  videoFile: VideoFile;
+}
 
 export const HomeStackNavigatorScreenName = 'HomeStackNavigator';
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

@@ -1,8 +1,7 @@
 import {Button, CenteredView} from '@ryotan-vision-camera-sandbox/ui-components';
-import {StatusBar} from 'expo-status-bar';
 import type {FunctionComponent} from 'react';
 import {useCallback} from 'react';
-import {Platform, Text} from 'react-native';
+import {Text} from 'react-native';
 
 import type {SaveVideoScreenName} from '../../routes';
 import {
@@ -14,19 +13,23 @@ import {
 } from '../../routes';
 import type {HomeStackScreenProps} from './HomeStackScreenProps';
 
-export const SaveVideoScreen: FunctionComponent<HomeStackScreenProps<typeof SaveVideoScreenName>> = ({navigation}) => {
+export const SaveVideoScreen: FunctionComponent<HomeStackScreenProps<typeof SaveVideoScreenName>> = ({
+  navigation,
+  route: {
+    params: {videoFile},
+  },
+}) => {
   const navigateToHome = useCallback(() => {
     navigation.navigate(HomeStackNavigatorScreenName, {screen: HomeScreenName});
   }, [navigation]);
   const navigateToPreviewVideo = useCallback(() => {
-    navigation.navigate(HomeStackNavigatorScreenName, {screen: PreviewVideoScreenName});
-  }, [navigation]);
+    navigation.navigate(HomeStackNavigatorScreenName, {screen: PreviewVideoScreenName, params: {videoFile}});
+  }, [navigation, videoFile]);
   const navigateToDetail = useCallback(() => {
     navigation.navigate(HistoryStackNavigatorScreenName, {screen: DetailScreenName});
   }, [navigation]);
   return (
     <CenteredView>
-      {Platform.OS === 'ios' && <StatusBar style="light" animated />}
       <Text>RecordScreen</Text>
       <Button onPress={navigateToHome}>
         <Text>Navigate to Home</Text>

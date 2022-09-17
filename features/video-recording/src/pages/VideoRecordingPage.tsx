@@ -2,13 +2,14 @@ import {Button} from '@ryotan-vision-camera-sandbox/ui-components';
 import type {FunctionComponent} from 'react';
 import {memo} from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import type {VideoFile} from 'react-native-vision-camera';
 import {Camera} from 'react-native-vision-camera';
 
 import {useCameraPermission} from '../use-cases/useCameraPermission';
 import {useVideoRecorder} from '../use-cases/useVideoRecorder';
 
 export interface Props {
-  navigationOnRecordingFinished?: () => unknown;
+  navigationOnRecordingFinished?: (videoFile: VideoFile) => unknown;
   navigationOnRecordingError?: () => unknown;
 }
 export const VideoRecordingPage: FunctionComponent<Props> = memo(props => {

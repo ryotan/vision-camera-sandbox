@@ -5,7 +5,7 @@ import type {Camera, VideoFile, CameraCaptureError} from 'react-native-vision-ca
 import {useCameraDevices} from 'react-native-vision-camera';
 
 export interface Args {
-  navigationOnRecordingFinished?: () => unknown;
+  navigationOnRecordingFinished?: (videoFile: VideoFile) => unknown;
   navigationOnRecordingError?: () => unknown;
 }
 export const useVideoRecorder = ({navigationOnRecordingFinished}: Args) => {
@@ -32,7 +32,7 @@ export const useVideoRecorder = ({navigationOnRecordingFinished}: Args) => {
       if (isMounted()) {
         setIsRecording(false);
       }
-      navigationOnRecordingFinished?.();
+      navigationOnRecordingFinished?.(video);
     },
     [isMounted, navigationOnRecordingFinished],
   );
