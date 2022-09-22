@@ -1,0 +1,61 @@
+{
+"name": "@ryotan-vision-camera-sandbox/random",
+  "version": "0.1.0-snapshot",
+  "description": "React Query wrapper to use it as the client state manager",
+  "scripts": {
+    "build": "bob build",
+    "clean": "rimraf dist",
+    "test": "jest --detectOpenHandles --runInBand",
+    "lint": "run-s --print-name --continue-on-error lint:*",
+    "lint:es": "eslint --ext .jsx,.js,.tsx,.ts .",
+    "lint:tsc": "tsc --noEmit",
+    "fix": "run-s --print-name --continue-on-error fix:*",
+    "fix:es": "eslint --fix --ext .jsx,.js,.tsx,.ts ."
+  },
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/typescript/index.d.ts",
+  "react-native": "src/index.ts",
+  "source": "src/index",
+  "typescript": "src/index.ts",
+  "author": "Ryo Tanaka <ryotan@ucb-jp.net>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@babel/core": "*",
+    "@ryotan-vision-camera-sandbox/babel-preset": "*",
+    "@ryotan-vision-camera-sandbox/jest-preset": "*",
+    "@ryotan-vision-camera-sandbox/type-util": "*",
+    "@types/jest": "*",
+    "babel-preset-expo": "*",
+    "expo-random": "*",
+    "jest": "*",
+    "nanoid": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-test-renderer": "*",
+    "ts-expect": "*",
+    "typescript": "*"
+  },
+  "peerDependencies": {
+    "expo-random": "*",
+    "nanoid": "*"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!**/__snapshots__",
+    "!**/*.test.*",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  }
+}
