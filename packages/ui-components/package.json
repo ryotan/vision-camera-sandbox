@@ -25,6 +25,7 @@
     "@material/material-color-utilities": "*",
     "@ryotan-vision-camera-sandbox/babel-preset": "*",
     "@ryotan-vision-camera-sandbox/jest-preset": "*",
+    "@ryotan-vision-camera-sandbox/react-query-app-state": "*",
     "@ryotan-vision-camera-sandbox/type-util": "*",
     "@testing-library/react-native": "*",
     "@types/jest": "*",
@@ -41,6 +42,7 @@
   },
   "peerDependencies": {
     "@material/material-color-utilities": "*",
+    "@ryotan-vision-camera-sandbox/react-query-app-state": "*",
     "react": "*",
     "react-native": "*",
     "react-native-safe-area-context": "*",
