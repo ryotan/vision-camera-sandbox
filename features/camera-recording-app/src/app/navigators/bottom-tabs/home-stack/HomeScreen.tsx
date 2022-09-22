@@ -14,5 +14,18 @@ export const HomeScreen: FunctionComponent<HomeStackScreenProps<typeof HomeScree
     },
     [navigation],
   );
-  return <VideoRecordingPage navigationOnRecordingFinished={navigateToSaveVideo} />;
+  const hideBottomTabBar = useCallback(() => {
+    navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+  }, [navigation]);
+  const showBottomTabBar = useCallback(() => {
+    navigation.getParent()?.setOptions({tabBarStyle: {display: 'flex'}});
+  }, [navigation]);
+
+  return (
+    <VideoRecordingPage
+      navigationOnRecordingFinished={navigateToSaveVideo}
+      hideBottomTabBar={hideBottomTabBar}
+      showBottomTabBar={showBottomTabBar}
+    />
+  );
 };

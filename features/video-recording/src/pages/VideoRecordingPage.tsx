@@ -11,8 +11,10 @@ import {useVideoRecorder} from '../use-cases/useVideoRecorder';
 export interface Props {
   navigationOnRecordingFinished?: (videoFile: VideoFile) => unknown;
   navigationOnRecordingError?: () => unknown;
+  showBottomTabBar?: () => unknown;
+  hideBottomTabBar?: () => unknown;
 }
-export const VideoRecordingPage: FunctionComponent<Props> = memo(props => {
+export const VideoRecordingPage: FunctionComponent<Props> = memo(({...props}) => {
   useCameraPermission();
 
   const {device, camera, isActive, startRecording, stopRecording, isRecording} = useVideoRecorder(props);

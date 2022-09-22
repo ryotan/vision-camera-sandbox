@@ -7,10 +7,12 @@ import {useCameraDevices} from 'react-native-vision-camera';
 export interface Args {
   navigationOnRecordingFinished?: (videoFile: VideoFile) => unknown;
   navigationOnRecordingError?: () => unknown;
+  showBottomTabBar?: () => unknown;
+  hideBottomTabBar?: () => unknown;
 }
-export const useVideoRecorder = ({navigationOnRecordingFinished}: Args) => {
+export const useVideoRecorder = ({navigationOnRecordingFinished, showBottomTabBar, hideBottomTabBar}: Args) => {
   const devices = useCameraDevices();
-  const device = devices.front;
+  const device = devices.back;
   const camera = useRef<Camera>(null);
 
   const [isActive, setIsActive] = useState(true);
@@ -32,9 +34,10 @@ export const useVideoRecorder = ({navigationOnRecordingFinished}: Args) => {
       if (isMounted()) {
         setIsRecording(false);
       }
+      showBottomTabBar?.();
       navigationOnRecordingFinished?.(video);
     },
-    [isMounted, navigationOnRecordingFinished],
+    [isMounted, navigationOnRecordingFinished, showBottomTabBar],
   );
 
   const onRecordingError = useCallback(
@@ -49,17 +52,19 @@ export const useVideoRecorder = ({navigationOnRecordingFinished}: Args) => {
       if (isMounted()) {
         setIsRecording(false);
       }
+      showBottomTabBar?.();
     },
-    [isMounted],
+    [isMounted, showBottomTabBar],
   );
 
   const startRecording = useCallback(() => {
     console.log('Start button pressed.', `isRecording: ${isRecording ? 'true' : 'false'}`);
     if (camera.current && !isRecording && isActive) {
+      hideBottomTabBar?.();
       setIsRecording(true);
       camera.current.startRecording({onRecordingFinished, onRecordingError});
     }
-  }, [isActive, isRecording, onRecordingError, onRecordingFinished]);
+  }, [hideBottomTabBar, isActive, isRecording, onRecordingError, onRecordingFinished]);
 
   const stopRecording = useCallback(() => {
     console.log('Stop button pressed.', `isRecording: ${isRecording ? 'true' : 'false'}`);
