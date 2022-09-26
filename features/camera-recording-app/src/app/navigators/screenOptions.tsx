@@ -1,7 +1,7 @@
+import type {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs';
 import type {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {useThemeColors} from '@ryotan-vision-camera-sandbox/ui-components';
 import {useMemo} from 'react';
-
-import {useThemeColors} from '../contexts/theme/useThemeColors';
 
 export const stackScreenDefault: NativeStackNavigationOptions = {
   headerShown: true,
@@ -13,7 +13,26 @@ export const stackScreenFullWindow: NativeStackNavigationOptions = {
   headerShown: false,
 };
 
-export const useBottomTabScreenOptions = () => {
+export const useStackScreenOptions = (): {[key: string]: NativeStackNavigationOptions} => {
+  const color = useThemeColors();
+  return useMemo(() => {
+    return {
+      defaultScreen: {
+        headerShown: true,
+        // Disable the header shadow to match the bottom tab screen look
+        headerShadowVisible: false,
+        contentStyle: {
+          backgroundColor: color.background,
+        },
+      },
+      fullScreen: {
+        headerShown: false,
+      },
+    };
+  }, [color.background]);
+};
+
+export const useBottomTabScreenOptions = (): {[key: string]: BottomTabNavigationOptions} => {
   const color = useThemeColors();
   return useMemo(() => {
     return {
