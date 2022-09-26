@@ -4,13 +4,13 @@ import {useCallback} from 'react';
 import type {VideoFile} from 'react-native-vision-camera';
 
 import type {HomeScreenName} from '../../routes';
-import {SaveVideoScreenName} from '../../routes';
+import {SaveResultScreenName} from '../../routes';
 import type {HomeStackScreenProps} from './HomeStackScreenProps';
 
 export const HomeScreen: FunctionComponent<HomeStackScreenProps<typeof HomeScreenName>> = ({navigation}) => {
   const navigateToSaveVideo = useCallback(
     (videoFile: VideoFile) => {
-      navigation.navigate(SaveVideoScreenName, {videoFile});
+      navigation.navigate(SaveResultScreenName, {videoFile});
     },
     [navigation],
   );

@@ -1,19 +1,19 @@
-import {SaveVideoPage} from '@ryotan-vision-camera-sandbox/video-recording/src/pages/SaveVideoPage';
+import {SaveResultPage} from '@ryotan-vision-camera-sandbox/video-recording/src/pages/SaveResultPage';
 import {useDeleteRecordedVideoFile} from '@ryotan-vision-camera-sandbox/video-recording/src/service/useDeleteRecordedVideoFile';
 import type {FunctionComponent} from 'react';
 import {useCallback, useEffect} from 'react';
 
-import type {SaveVideoScreenName} from '../../routes';
+import type {SaveResultScreenName} from '../../routes';
 import {HomeScreenName, HomeStackNavigatorScreenName, PreviewVideoScreenName} from '../../routes';
 import type {HomeStackScreenProps} from './HomeStackScreenProps';
 
-export const SaveVideoScreen: FunctionComponent<HomeStackScreenProps<typeof SaveVideoScreenName>> = ({
+export const SaveResultScreen: FunctionComponent<HomeStackScreenProps<typeof SaveResultScreenName>> = ({
   navigation,
   route: {
     params: {videoFile},
   },
 }) => {
-  console.debug('SaveVideoScreen is rendered');
+  console.debug('SaveResultScreen is rendered');
   const navigateToHome = useCallback(() => {
     navigation.navigate(HomeStackNavigatorScreenName, {screen: HomeScreenName});
   }, [navigation]);
@@ -29,7 +29,7 @@ export const SaveVideoScreen: FunctionComponent<HomeStackScreenProps<typeof Save
   }, [navigation, removeRecordedFile, videoFile]);
 
   return (
-    <SaveVideoPage
+    <SaveResultPage
       videoFile={videoFile}
       navigateToPreviewScreen={navigateToPreviewVideo}
       navigateAfterVideoFileSaved={navigateToHome}

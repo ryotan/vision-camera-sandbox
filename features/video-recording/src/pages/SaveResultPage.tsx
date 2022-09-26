@@ -22,8 +22,8 @@ interface Props {
   navigateAfterVideoFileSaved: (videoFile: VideoFile) => unknown;
   navigateWhenCanceled: (videoFile: VideoFile) => unknown;
 }
-export const SaveVideoPage: FC<Props> = props => {
-  console.debug('SaveVideoPage is rendered');
+export const SaveResultPage: FC<Props> = props => {
+  console.debug('SaveResultPage is rendered');
 
   const {cancel, save} = useMeasurementResultOperation(props);
 
