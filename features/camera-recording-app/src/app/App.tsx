@@ -1,11 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
+import {StyleUtilitiesProvider, ThemeColorProvider} from '@ryotan-vision-camera-sandbox/ui-components';
 import type {FunctionComponent} from 'react';
 import {StrictMode} from 'react';
 import {LogBox, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {initialWindowMetrics, SafeAreaProvider} from 'react-native-safe-area-context';
 
-import {ColorSchemeChangeEventListenerProvider} from './contexts/ColorSchemeChangeEventListenerProvider';
 import {ReactQueryClientProvider} from './contexts/react-query/ReactQueryClientProvider';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
 
@@ -20,15 +20,17 @@ export const App: FunctionComponent = () => {
   return (
     <StrictMode>
       <ReactQueryClientProvider>
-        <ColorSchemeChangeEventListenerProvider>
+        <ThemeColorProvider sourceColor="#22A9BC">
           <GestureHandlerRootView style={StyleSheet.absoluteFill}>
             <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-              <NavigationContainer>
-                <RootStackNavigator />
-              </NavigationContainer>
+              <StyleUtilitiesProvider>
+                <NavigationContainer>
+                  <RootStackNavigator />
+                </NavigationContainer>
+              </StyleUtilitiesProvider>
             </SafeAreaProvider>
           </GestureHandlerRootView>
-        </ColorSchemeChangeEventListenerProvider>
+        </ThemeColorProvider>
       </ReactQueryClientProvider>
     </StrictMode>
   );
