@@ -4,6 +4,8 @@ import Svg, {Path} from 'react-native-svg';
 
 import type {IconProps} from './IconProps';
 
+// original data: https://uxwing.com/play-button-icon/
+// license: https://uxwing.com/license/
 const SvgComponent = (props: SvgProps) => (
   <Svg x={0} y={0} viewBox="0 0 512 512" {...props}>
     <Path d="M207.063 167.141a3.4 3.4 0 0 0-3.406-.031 3.401 3.401 0 0 0-1.688 2.938V341.939a3.38 3.38 0 0 0 1.688 2.938 3.328 3.328 0 0 0 3.406-.031l144-85.953c1.031-.594 1.641-1.703 1.641-2.906 0-1.172-.609-2.297-1.641-2.891l-144-85.955z" />

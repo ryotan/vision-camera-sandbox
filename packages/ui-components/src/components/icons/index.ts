@@ -3,3 +3,4 @@ export * from './IconProps';
 export * from './ListIcon';
 export * from './PlayMovieIcon';
 export * from './VideoCameraIcon';
+export * from './VideoThumbnailIcon';
