@@ -1,16 +1,10 @@
-import {Button, CenteredView} from '@ryotan-vision-camera-sandbox/ui-components';
+import {SaveVideoPage} from '@ryotan-vision-camera-sandbox/video-recording/src/pages/SaveVideoPage';
+import {useDeleteRecordedVideoFile} from '@ryotan-vision-camera-sandbox/video-recording/src/service/useDeleteRecordedVideoFile';
 import type {FunctionComponent} from 'react';
-import {useCallback} from 'react';
-import {Text} from 'react-native';
+import {useCallback, useEffect} from 'react';
 
 import type {SaveVideoScreenName} from '../../routes';
-import {
-  DetailScreenName,
-  HistoryStackNavigatorScreenName,
-  HomeScreenName,
-  HomeStackNavigatorScreenName,
-  PreviewVideoScreenName,
-} from '../../routes';
+import {HomeScreenName, HomeStackNavigatorScreenName, PreviewVideoScreenName} from '../../routes';
 import type {HomeStackScreenProps} from './HomeStackScreenProps';
 
 export const SaveVideoScreen: FunctionComponent<HomeStackScreenProps<typeof SaveVideoScreenName>> = ({
@@ -19,27 +13,27 @@ export const SaveVideoScreen: FunctionComponent<HomeStackScreenProps<typeof Save
     params: {videoFile},
   },
 }) => {
+  console.debug('SaveVideoScreen is rendered');
   const navigateToHome = useCallback(() => {
     navigation.navigate(HomeStackNavigatorScreenName, {screen: HomeScreenName});
   }, [navigation]);
   const navigateToPreviewVideo = useCallback(() => {
     navigation.navigate(HomeStackNavigatorScreenName, {screen: PreviewVideoScreenName, params: {videoFile}});
   }, [navigation, videoFile]);
-  const navigateToDetail = useCallback(() => {
-    navigation.navigate(HistoryStackNavigatorScreenName, {screen: DetailScreenName});
-  }, [navigation]);
+
+  const {mutateAsync: removeRecordedFile} = useDeleteRecordedVideoFile();
+  useEffect(() => {
+    return navigation.addListener('beforeRemove', async () => {
+      await removeRecordedFile(videoFile);
+    });
+  }, [navigation, removeRecordedFile, videoFile]);
+
   return (
-    <CenteredView>
-      <Text>RecordScreen</Text>
-      <Button onPress={navigateToHome}>
-        <Text>Navigate to Home</Text>
-      </Button>
-      <Button onPress={navigateToPreviewVideo}>
-        <Text>Navigate to PreviewVideo</Text>
-      </Button>
-      <Button onPress={navigateToDetail}>
-        <Text>Navigate to History &gt; Detail</Text>
-      </Button>
-    </CenteredView>
+    <SaveVideoPage
+      videoFile={videoFile}
+      navigateToPreviewScreen={navigateToPreviewVideo}
+      navigateAfterVideoFileSaved={navigateToHome}
+      navigateWhenCanceled={navigateToHome}
+    />
   );
 };
