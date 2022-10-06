@@ -1,4 +1,4 @@
-import {VideoRecordingPage} from '@ryotan-vision-camera-sandbox/video-recording/src/pages/VideoRecordingPage';
+import {RecordVideoPage} from '@ryotan-vision-camera-sandbox/video-recording/src/pages/RecordVideoPage';
 import type {FunctionComponent} from 'react';
 import {useCallback} from 'react';
 import type {VideoFile} from 'react-native-vision-camera';
@@ -22,7 +22,7 @@ export const HomeScreen: FunctionComponent<HomeStackScreenProps<typeof HomeScree
   }, [navigation]);
 
   return (
-    <VideoRecordingPage
+    <RecordVideoPage
       navigationOnRecordingFinished={navigateToSaveVideo}
       hideBottomTabBar={hideBottomTabBar}
       showBottomTabBar={showBottomTabBar}

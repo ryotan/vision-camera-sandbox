@@ -14,7 +14,7 @@ export interface Props {
   showBottomTabBar?: () => unknown;
   hideBottomTabBar?: () => unknown;
 }
-export const VideoRecordingPage: FunctionComponent<Props> = memo(({...props}) => {
+export const RecordVideoPage: FunctionComponent<Props> = memo(({...props}) => {
   useCameraPermission();
 
   const {device, camera, isActive, startRecording, stopRecording, isRecording} = useVideoRecorder(props);
