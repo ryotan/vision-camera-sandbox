@@ -38,12 +38,22 @@ export type HistoryStackScreenParams = {
 export const ConfigScreenName = 'Config';
 export type ConfigScreenParams = undefined;
 
+export const ColorPaletteScreenName = 'ColorPalette';
+export type ColorPaletteScreenParams = undefined;
+
+export const ConfigStackNavigatorScreenName = 'ConfigStackNavigator';
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type ConfigStackScreenParams = {
+  [ConfigScreenName]: ConfigScreenParams;
+  [ColorPaletteScreenName]: ColorPaletteScreenParams;
+};
+
 export const BottomTabNavigatorScreenName = 'BottomTabNavigator';
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type BottomTabScreenParams = {
   [HomeStackNavigatorScreenName]: NavigatorScreenParams<HomeStackScreenParams>;
   [HistoryStackNavigatorScreenName]: NavigatorScreenParams<HistoryStackScreenParams>;
-  [ConfigScreenName]: ConfigScreenParams;
+  [ConfigStackNavigatorScreenName]: NavigatorScreenParams<ConfigStackScreenParams>;
 };
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

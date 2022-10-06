@@ -4,9 +4,9 @@ import type {IconProps} from '@ryotan-vision-camera-sandbox/ui-components';
 import type {FunctionComponent} from 'react';
 
 import type {BottomTabScreenParams} from '../routes';
-import {ConfigScreenName, HistoryStackNavigatorScreenName, HomeStackNavigatorScreenName} from '../routes';
+import {ConfigStackNavigatorScreenName, HistoryStackNavigatorScreenName, HomeStackNavigatorScreenName} from '../routes';
 import {useBottomTabScreenOptions} from '../screenOptions';
-import {ConfigScreen} from './ConfigScreen';
+import {ConfigStackNavigator} from './config-stack/ConfigStackNavigator';
 import {HistoryStackNavigator} from './history-stack/HistoryStackNavigator';
 import {HomeStackNavigator} from './home-stack/HomeStackNavigator';
 
@@ -24,7 +24,7 @@ const tab = createBottomTabNavigator<BottomTabScreenParams>();
 export const BottomTabNavigator = () => {
   console.debug('BottomTabNavigator is rendered');
 
-  const {defaultScreen, screenWithoutStackNavigator} = useBottomTabScreenOptions();
+  const {defaultScreen} = useBottomTabScreenOptions();
   return (
     <tab.Navigator screenOptions={defaultScreen}>
       <tab.Screen
@@ -38,9 +38,9 @@ export const BottomTabNavigator = () => {
         options={{title: 'History', tabBarIcon: VideoHistoryBottomTabIcon}}
       />
       <tab.Screen
-        name={ConfigScreenName}
-        component={ConfigScreen}
-        options={{...screenWithoutStackNavigator, title: 'Config', tabBarIcon: ConfigScreenBottomTabIcon}}
+        name={ConfigStackNavigatorScreenName}
+        component={ConfigStackNavigator}
+        options={{title: 'Config', tabBarIcon: ConfigScreenBottomTabIcon}}
       />
     </tab.Navigator>
   );
