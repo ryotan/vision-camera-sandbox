@@ -1,7 +1,7 @@
 import * as ExpoFileSystem from 'expo-file-system';
 import type {VideoFile} from 'react-native-vision-camera';
 
-import {generateRecordedVideoFileName} from '../util/generateRecordedVideoFileName';
+import {generateRecordedVideoFileName} from '../utils';
 
 export const saveRecordedVideoFile = async (videoFile: VideoFile) => {
   if (ExpoFileSystem.documentDirectory) {
