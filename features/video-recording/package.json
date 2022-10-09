@@ -18,6 +18,7 @@
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
+    "@ryotan-vision-camera-sandbox/focus-listener": "*",
     "@ryotan-vision-camera-sandbox/ui-components": "*",
     "@ryotan-vision-camera-sandbox/utilities": "*",
     "@ryotan-vision-camera-sandbox/random": "*",
@@ -30,6 +31,7 @@
     "expo-status-bar": "*",
     "expo-system-ui": "*",
     "expo-video-thumbnails": "*",
+    "formik": "*",
     "react": "*",
     "react-native": "*",
     "react-native-gesture-handler": "*",
@@ -37,7 +39,8 @@
     "react-native-safe-area-context": "*",
     "react-native-screens": "*",
     "react-native-svg": "*",
-    "react-native-vision-camera": "*"
+    "react-native-vision-camera": "*",
+    "yup":  "*"
   },
   "devDependencies": {
     "@babel/core": "*",
