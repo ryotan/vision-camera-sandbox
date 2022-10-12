@@ -1,17 +1,17 @@
 import type {NavigatorScreenParams} from '@react-navigation/native';
-import type {VideoFile} from 'react-native-vision-camera';
+import type {PartialVideoRecordingResult, RecordedVideo} from '@ryotan-vision-camera-sandbox/video-recording';
 
 export const HomeScreenName = 'Home';
 export type HomeScreenParams = undefined;
 
 export const SaveResultScreenName = 'SaveResult';
 export interface SaveResultScreenParams {
-  videoFile: VideoFile;
+  recordedVideo: RecordedVideo;
 }
 
 export const PreviewVideoScreenName = 'PreviewVideo';
 export interface PreviewVideoScreenParams {
-  videoFile: VideoFile;
+  result: PartialVideoRecordingResult;
 }
 
 export const HomeStackNavigatorScreenName = 'HomeStackNavigator';
@@ -26,7 +26,9 @@ export const HistoryScreenName = 'History';
 export type HistoryScreenParams = undefined;
 
 export const DetailScreenName = 'Detail';
-export type DetailScreenParams = undefined;
+export interface DetailScreenParams {
+  file: string;
+}
 
 export const HistoryStackNavigatorScreenName = 'HistoryStackNavigator';
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

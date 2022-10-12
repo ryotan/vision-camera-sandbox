@@ -4,10 +4,14 @@ import type {VideoFile} from 'react-native-vision-camera';
 import {generateRecordedVideoFileName} from '../utils';
 
 export const saveRecordedVideoFile = async (videoFile: VideoFile) => {
-  if (ExpoFileSystem.documentDirectory) {
-    await ExpoFileSystem.moveAsync({
-      from: videoFile.path,
-      to: `${ExpoFileSystem.documentDirectory}${generateRecordedVideoFileName(new Date())}`,
-    });
+  if (!ExpoFileSystem.documentDirectory) {
+    return;
   }
+
+  const path = `${ExpoFileSystem.documentDirectory}${generateRecordedVideoFileName(new Date())}`;
+  await ExpoFileSystem.moveAsync({
+    from: videoFile.path,
+    to: path,
+  });
+  return path;
 };

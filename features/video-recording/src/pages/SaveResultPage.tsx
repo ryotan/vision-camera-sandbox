@@ -1,3 +1,5 @@
+import {useBeforeRemoveListener} from '@ryotan-vision-camera-sandbox/focus-listener';
+import {randomId} from '@ryotan-vision-camera-sandbox/random';
 import {
   Header,
   OutlinedButton,
@@ -13,13 +15,15 @@ import {useCallback, useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import type {VideoFile} from 'react-native-vision-camera';
 
-import {VideoThumbnail} from '../components/thumbnail/VideoThumbnail';
-import {useMeasurementResultOperation} from '../use-cases/useMeasurementResultOperation';
+import {VideoThumbnail} from '../components';
+import {useDeleteRecordedVideoFile} from '../service';
+import type {PartialVideoRecordingResult, RecordedVideo, VideoRecordingResult} from '../types';
+import {useMeasurementResultOperation} from '../use-cases';
 
 interface Props {
-  videoFile: VideoFile;
-  navigateToPreviewScreen: (videoFile: VideoFile) => unknown;
-  navigateAfterVideoFileSaved: (videoFile: VideoFile) => unknown;
+  recordedVideo: RecordedVideo;
+  navigateToPreviewScreen: (partialResult: PartialVideoRecordingResult) => unknown;
+  navigateAfterVideoFileSaved: (result: VideoRecordingResult) => unknown;
   navigateWhenCanceled: (videoFile: VideoFile) => unknown;
 }
 export const SaveResultPage: FC<Props> = props => {
@@ -27,10 +31,19 @@ export const SaveResultPage: FC<Props> = props => {
 
   const {cancel, save} = useMeasurementResultOperation(props);
 
-  const {videoFile, navigateToPreviewScreen} = props;
+  const {recordedVideo, navigateToPreviewScreen} = props;
   const previewMeasurementResult = useCallback(() => {
-    navigateToPreviewScreen(videoFile);
-  }, [navigateToPreviewScreen, videoFile]);
+    navigateToPreviewScreen(recordedVideo);
+  }, [navigateToPreviewScreen, recordedVideo]);
+
+  const id = randomId();
+
+  const {mutateAsync: removeRecordedFile} = useDeleteRecordedVideoFile();
+  useBeforeRemoveListener(
+    useCallback(async () => {
+      await removeRecordedFile(recordedVideo.videoFile);
+    }, [recordedVideo.videoFile, removeRecordedFile]),
+  );
 
   const styles = useStyles();
   return (
@@ -41,18 +54,23 @@ export const SaveResultPage: FC<Props> = props => {
         </View>
         <View style={styles.recordedVideoContainer}>
           <View style={styles.thumbnailContainer}>
-            <VideoThumbnail videoFileUri={videoFile.path} />
+            <VideoThumbnail videoFileUri={recordedVideo.videoFile.path} />
           </View>
           <Spacer vw={5} />
           <View style={styles.videoInfoContainer}>
             <View style={styles.sideBySideVideoInfoRow}>
+              <Text color="secondary">Identity</Text>
+              <Text weight="bold">{id}</Text>
+            </View>
+            <Spacer vh={1} />
+            <View style={styles.sideBySideVideoInfoRow}>
               <Text color="secondary">Duration</Text>
-              <Text weight="bold">{props.videoFile.duration}s</Text>
+              <Text weight="bold">{props.recordedVideo.videoFile.duration}s</Text>
             </View>
             <Spacer vh={1} />
             <View style={styles.sideBySideVideoInfoRow}>
               <Text color="secondary">Size</Text>
-              <Text weight="bold">{props.videoFile.duration}s</Text>
+              <Text weight="bold">{props.recordedVideo.videoFile.duration}s</Text>
             </View>
             <Spacer vh={1} />
             <View style={styles.videoPreviewButtonContainer}>

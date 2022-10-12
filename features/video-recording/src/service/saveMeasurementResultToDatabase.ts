@@ -1,5 +1,5 @@
-import type {MeasurementResult} from './useSaveMeasurementResult';
+import type {VideoRecordingResult} from '../types/VideoRecordingResult';
 
-export const saveMeasurementResultToDatabase = async (measurementResult: MeasurementResult) => {
+export const saveMeasurementResultToDatabase = async (item: VideoRecordingResult) => {
   await new Promise(resolve => setTimeout(resolve, 20));
 };

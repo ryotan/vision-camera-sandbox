@@ -4,8 +4,10 @@ import {useCallback, useRef, useState} from 'react';
 import type {Camera, VideoFile, CameraCaptureError} from 'react-native-vision-camera';
 import {useCameraDevices} from 'react-native-vision-camera';
 
+import type {RecordedVideo} from '../types/RecordedVideo';
+
 export interface Args {
-  navigationOnRecordingFinished?: (videoFile: VideoFile) => unknown;
+  navigationOnRecordingFinished?: (recordedVideo: RecordedVideo) => unknown;
   navigationOnRecordingError?: () => unknown;
   showBottomTabBar?: () => unknown;
   hideBottomTabBar?: () => unknown;
@@ -15,6 +17,7 @@ export const useVideoRecorder = ({navigationOnRecordingFinished, showBottomTabBa
   const device = devices.back;
   const camera = useRef<Camera>(null);
 
+  // FIXME: 画面遷移時にカメラの録画を停止しないといけないけど、useFocusEffectはScreenから呼び出すようにするべき。
   const [isActive, setIsActive] = useState(true);
   useFocusEffect(
     useCallback(() => {
@@ -35,7 +38,7 @@ export const useVideoRecorder = ({navigationOnRecordingFinished, showBottomTabBa
         setIsRecording(false);
       }
       showBottomTabBar?.();
-      navigationOnRecordingFinished?.(video);
+      navigationOnRecordingFinished?.({videoFile: video, startedAt: new Date(), finishedAt: new Date()});
     },
     [isMounted, navigationOnRecordingFinished, showBottomTabBar],
   );
@@ -45,6 +48,8 @@ export const useVideoRecorder = ({navigationOnRecordingFinished, showBottomTabBa
       // 'capture/no-valid-data' occurs when the user hits the button repeatedly.
       // 'capture/inactive-source' occurs when the user hits the button before the camera become active.
       if (['capture/no-valid-data', 'capture/inactive-source'].includes(error.code)) {
+        // FIXME: If 'capture/nova-lid-data' occurs, the output file should be deleted.
+        //        But the file path can not be obtained from the error.
         console.debug(error);
       } else {
         console.error(error);

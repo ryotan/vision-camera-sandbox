@@ -1,4 +1,5 @@
 import {useThemeColors, VideoThumbnailIcon} from '@ryotan-vision-camera-sandbox/ui-components';
+import * as ExpoFileSystem from 'expo-file-system';
 import * as VideoThumbnails from 'expo-video-thumbnails';
 import type {FC} from 'react';
 import {forwardRef, memo, useEffect, useState} from 'react';
@@ -21,7 +22,12 @@ const Component: FC<Props> = forwardRef<Image, Props>(({videoFileUri, thumbnailU
           setImageUri(uri);
         })
         .catch(e => {
-          console.error(e);
+          // FIXME: Video files which has no key frame must be removed when the recoding error has occurred.
+          //        But we cannot know the file path when the error has occurred.
+          ExpoFileSystem.deleteAsync(videoFileUri).catch(() => {
+            // ignore
+          });
+          console.error(videoFileUri, e);
         });
     }
   }, [thumbnailUri, videoFileUri]);

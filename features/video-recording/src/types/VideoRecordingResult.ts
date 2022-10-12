@@ -3,7 +3,7 @@ import type {VideoFile} from 'react-native-vision-camera';
 export interface VideoRecordingResult {
   videoFile: VideoFile;
   place?: string;
-  startedAt: Date;
-  finishedAt: Date;
+  startedAt: number;
+  finishedAt: number;
   thumbnailUri?: string;
 }
